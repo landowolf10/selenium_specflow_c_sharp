@@ -23,4 +23,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".circleci\config.yml" />
+  </ItemGroup>
+
 </Project>
