@@ -2,13 +2,21 @@
 executors:
   default:
     docker:
-      - image: selenium/standalone-chrome:latest
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
 jobs:
   build:
     docker:
-      - image: selenium/standalone-chrome:latest
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
+      - run:
+          name: Install .NET Core SDK
+          command: |
+            curl -SL --output dotnet-install.sh https://dot.net/v1/dotnet-install.sh
+            chmod +x dotnet-install.sh
+            ./dotnet-install.sh --install-dir /usr/share/dotnet --version 6.0 --no-path
+            ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+            dotnet --version  # Verify installation
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
