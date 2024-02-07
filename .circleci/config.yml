@@ -2,11 +2,11 @@
 executors:
   default:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0-browsers
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
 jobs:
   build:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0-browsers
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
       - run:
