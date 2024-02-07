@@ -1,4 +1,8 @@
 ﻿version: 2.1
+executors:
+  default:
+    docker:
+      - image: selenium/standalone-chrome:latest
 jobs:
   build:
     docker:
@@ -6,24 +10,29 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Chrome and ChromeDriver
+          name: Install Dependencies
           command: |
-            apt-get update && apt-get install -y curl unzip
+            apt-get update && apt-get install -y gnupg gnupg1 gnupg2 unzip
             curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
             echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
             apt-get update && apt-get install -y google-chrome-stable
-            CHROME_VERSION=$(google-chrome --version | grep -oE "[0-9]+")
-            CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-            wget -N https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
-            unzip chromedriver_linux64.zip
-            mv chromedriver /usr/local/bin/
+            
+            # Download and set up ChromeDriver
+            wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/linux64/chromedriver-linux64.zip
+            unzip chromedriver-linux64.zip
+            mv chromedriver-linux64/chromedriver /usr/local/bin/
             chmod +x /usr/local/bin/chromedriver
 
+            # Install GeckoDriver
+            wget -N https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+            tar -xzf geckodriver-v0.31.0-linux64.tar.gz
+            mv geckodriver /usr/local/bin/
+            chmod +x /usr/local/bin/geckodriver
+
+            chmod +x /root/project/selenium_specflow_c_sharp/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
       - run:
           name: Run Selenium Tests
-          command: |
-            dotnet test --filter Category=Login
-
+          command: dotnet test --filter Category=Login
       - run:
           name: Modify report CSS
           command: |
@@ -32,11 +41,9 @@ jobs:
             cd /home/circleci/project/test-output/HtmlReport
             cat ExtentHtml.html
             ls
-
       - store_artifacts:
           path: test-output/HtmlReport
           destination: extent-reports
-
       - store_test_results:
           path: test-output/HtmlReport
 
