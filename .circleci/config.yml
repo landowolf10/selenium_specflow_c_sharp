@@ -3,14 +3,10 @@ executors:
   default:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-        environment:
-          MSBuildSDKsPath: /usr/share/dotnet/sdk/$(< /etc/dotnet-release)
 jobs:
   build:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-        environment:
-          MSBuildSDKsPath: /usr/share/dotnet/sdk/$(< /etc/dotnet-release)
     steps:
       - checkout
       - run:
