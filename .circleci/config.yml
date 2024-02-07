@@ -12,6 +12,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
+            apt-get update && apt-get install -y gnupg gnupg1 gnupg2
             curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
             echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
             apt-get update && apt-get install -y google-chrome-stable
