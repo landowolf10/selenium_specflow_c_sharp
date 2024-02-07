@@ -10,13 +10,26 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install .NET Core SDK
+          name: Install Dependencies
           command: |
-            curl -SL --output dotnet-install.sh https://dot.net/v1/dotnet-install.sh
-            chmod +x dotnet-install.sh
-            ./dotnet-install.sh --install-dir /usr/share/dotnet --version 6.0 --no-path
-            ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
-            dotnet --version  # Verify installation
+            apt-get update && apt-get install -y gnupg gnupg1 gnupg2 unzip
+            curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
+            apt-get update && apt-get install -y google-chrome-stable
+            
+            # Download and set up ChromeDriver
+            wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/linux64/chromedriver-linux64.zip
+            unzip chromedriver-linux64.zip
+            mv chromedriver-linux64/chromedriver /usr/local/bin/
+            chmod +x /usr/local/bin/chromedriver
+
+            # Install GeckoDriver
+            wget -N https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+            tar -xzf geckodriver-v0.31.0-linux64.tar.gz
+            mv geckodriver /usr/local/bin/
+            chmod +x /usr/local/bin/geckodriver
+
+            #chmod +x /root/project/selenium_specflow_c_sharp/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
