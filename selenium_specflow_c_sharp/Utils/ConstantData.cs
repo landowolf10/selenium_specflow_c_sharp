@@ -8,10 +8,10 @@ namespace selenium_specflow_c_sharp.Utils
 {
     public class ConstantData
     {
-        public static String chromeDriverPathWindows = "C:\\Users\\orlan\\Documents\\Projects\\Automation\\Selenium\\selenium_specflow_c_sharp\\selenium_specflow_c_sharp\\Utils\\Drivers\\chromedriver.exe";
-        public static String chromeDriverPathLinux = "./Utils/Drivers/chromedriver";
-        public static String geckoDriverPathWindows = "./src/test/resources/drivers/geckodriver.exe";
-        public static String geckoDriverPathLinux = "./Utils/Drivers/geckodriver";
-        public static String URL = "https://www.saucedemo.com";
+        public static string chromeDriverPathWindows = "./Utils/Drivers/chromedriver.exe";
+        public static string chromeDriverPathLinux = "./Utils/Drivers/chromedriver";
+        public static string geckoDriverPathWindows = "./Utils/Drivers/geckodriver.exe";
+        public static string geckoDriverPathLinux = "./Utils/Drivers/geckodriver";
+        public static string URL = "https://www.saucedemo.com";
     }
 }
