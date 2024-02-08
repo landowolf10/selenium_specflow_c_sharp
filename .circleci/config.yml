@@ -30,6 +30,10 @@ jobs:
             chmod +x /usr/local/bin/geckodriver
 
             chmod +x /root/project/selenium_specflow_c_sharp/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
+
+            # Adjust permissions for chromedriver and geckodriver
+            chmod +x /usr/local/bin/chromedriver
+            chmod +x /usr/local/bin/geckodriver
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
