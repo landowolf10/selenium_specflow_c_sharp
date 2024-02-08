@@ -47,7 +47,7 @@ namespace selenium_specflow_c_sharp.Utils
             {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.AddArgument("--remote-allow-origins=*");
-                //chromeOptions.addArguments("--headless");
+                chromeOptions.AddArguments("--headless");
                 chromeOptions.AddArgument("--start-maximized");
 
                 if (getOSName().Equals("Windows"))
@@ -61,8 +61,7 @@ namespace selenium_specflow_c_sharp.Utils
             else if (browser.Equals("Firefox"))
             {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                //firefoxOptions.addArguments("--headless");
-
+                firefoxOptions.AddArguments("--headless");
                 firefoxOptions.AddArgument("--start-maximized");
 
 
