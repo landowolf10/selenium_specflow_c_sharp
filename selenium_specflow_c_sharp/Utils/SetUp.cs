@@ -48,6 +48,7 @@ namespace selenium_specflow_c_sharp.Utils
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.AddArgument("--remote-allow-origins=*");
                 chromeOptions.AddArguments("--headless");
+                chromeOptions.AddArguments("'--no-sandbox");
                 chromeOptions.AddArgument("--start-maximized");
 
                 if (getOSName().Equals("Windows"))
