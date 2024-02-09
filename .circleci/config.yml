@@ -3,7 +3,7 @@
 jobs:
   build:
     docker:
-      - image: circleci/classic:latest
+      - image: circleci/ubuntu-20.04:latest-browsers
     steps:
       - checkout
       - run:
