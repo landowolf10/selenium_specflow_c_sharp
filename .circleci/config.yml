@@ -2,11 +2,11 @@
 executors:
   default:
     docker:
-      - image: ubuntu-2204:2024.01.1
+      - image: cimg/base:2024.01
 jobs:
   build:
     docker:
-      - image: ubuntu-2204:2024.01.1
+      - image: cimg/base:2024.01
     steps:
       - checkout
       - run:
