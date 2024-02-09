@@ -1,43 +1,39 @@
 ﻿version: 2.1
+
 executors:
   default:
     docker:
-      - image: cimg/base:2024.01
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
+
 jobs:
   build:
     docker:
-      - image: cimg/base:2024.01
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
+
     steps:
       - checkout
       - run:
-          name: Install Dependencies
+          name: Install Chrome and ChromeDriver
           command: |
-            sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get update && sudo apt-get install -y google-chrome-stable
-            
-            # Download and set up ChromeDriver
             wget -N https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
             unzip chromedriver_linux64.zip -d ~/bin
             sudo mv ~/bin/chromedriver /usr/local/bin/chromedriver
             sudo chmod +x /usr/local/bin/chromedriver
 
-            # Install GeckoDriver
+      - run:
+          name: Install GeckoDriver
+          command: |
             wget -N https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
             tar -xzf geckodriver-v0.33.0-linux64.tar.gz
             sudo mv geckodriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/geckodriver
-            
-            # Install .NET Core SDK
-            wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get update
-            sudo apt-get install -y apt-transport-https
-            sudo apt-get update
-            sudo apt-get install -y dotnet-sdk-3.1 libssl1.0-dev
+
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
+
+      # Additional steps for modifying report CSS, storing artifacts, and test results
       - run:
           name: Modify report CSS
           command: |
@@ -46,9 +42,11 @@ jobs:
             cd /home/circleci/project/test-output/HtmlReport
             cat ExtentHtml.html
             ls
+
       - store_artifacts:
           path: test-output/HtmlReport
           destination: extent-reports
+
       - store_test_results:
           path: test-output/HtmlReport
 
