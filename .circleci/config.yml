@@ -27,6 +27,8 @@ jobs:
             tar -xzf geckodriver-v0.33.0-linux64.tar.gz
             sudo mv geckodriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/geckodriver
+
+            sudo curl -sS -o - https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
