@@ -35,6 +35,7 @@ jobs:
             mv geckodriver /usr/local/bin/
             chmod +x /usr/local/bin/geckodriver
 
+            chmod +x /root/project/selenium_specflow_c_sharp/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
