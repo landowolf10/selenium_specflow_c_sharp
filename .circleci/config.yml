@@ -27,9 +27,6 @@ jobs:
             tar -xzf geckodriver-v0.33.0-linux64.tar.gz
             sudo mv geckodriver /usr/local/bin/
             sudo chmod +x /usr/local/bin/geckodriver
-
-            # Install required dependencies for .NET Core SDK
-            sudo apt-get install -y libssl1.0.0
             
             # Install .NET Core SDK
             wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
@@ -37,7 +34,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y apt-transport-https
             sudo apt-get update
-            sudo apt-get install -y dotnet-sdk-3.1
+            sudo apt-get install -y dotnet-sdk-3.1 libssl1.0-dev
       - run:
           name: Run Selenium Tests
           command: dotnet test --filter Category=Login
