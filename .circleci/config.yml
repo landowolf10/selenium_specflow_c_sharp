@@ -2,11 +2,11 @@
 executors:
   default:
     docker:
-      - image: circleci/openjdk:11-jdk-browsers
+      - image: ubuntu-2204:2024.01.1
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11-jdk-browsers
+      - image: ubuntu-2204:2024.01.1
     steps:
       - checkout
       - run:
