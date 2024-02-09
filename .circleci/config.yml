@@ -3,7 +3,7 @@
 jobs:
   build:
     docker:
-      - image: circleci/dotnet:3.1-browsers
+      - image: circleci/dotnet:3.1
     steps:
       - checkout
       - run:
