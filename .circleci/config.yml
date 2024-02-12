@@ -20,6 +20,10 @@ jobs:
             echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list.d/google-chrome.list
             apt-get update && apt-get install -y google-chrome-stable
 
+            # Extract Chrome version
+            CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}')
+            echo "Installed Chrome Version: $CHROME_VERSION"
+
             # Install ChromeDriver
             CHROME_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1)
             wget -N https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/linux64/chromedriver-linux64.zip
