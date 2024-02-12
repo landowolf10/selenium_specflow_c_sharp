@@ -19,7 +19,7 @@ namespace selenium_specflow_c_sharp.Utils
         public static bool driverInstanceExists = false;
         public static IWebDriver driverInstance = null;
 
-        public IWebDriver getDriver(String browser)
+        public IWebDriver getDriver(string browser)
         {
             if (driverInstanceExists)
             {
@@ -46,8 +46,8 @@ namespace selenium_specflow_c_sharp.Utils
             if (browser.Equals("Chrome"))
             {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.AddArgument("--remote-allow-origins=*");
-                chromeOptions.AddArguments("--no-sandbox");
+                //chromeOptions.AddArgument("--remote-allow-origins=*");
+                //chromeOptions.AddArguments("--no-sandbox");
                 chromeOptions.AddArguments("--headless");
                 chromeOptions.AddArgument("--start-maximized");
 
