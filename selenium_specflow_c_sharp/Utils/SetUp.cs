@@ -13,11 +13,11 @@ namespace selenium_specflow_c_sharp.Utils
 {
     public class SetUp
     {
-        IWebDriver driver;
-        public static WebDriverWait wait;
-        public static string browser;
+        private IWebDriver? driver;
+        public static WebDriverWait? wait;
+        public static string? browser;
         public static bool driverInstanceExists = false;
-        public static IWebDriver driverInstance = null;
+        public static IWebDriver? driverInstance = null;
 
         public IWebDriver getDriver(string browser)
         {
